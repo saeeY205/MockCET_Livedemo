@@ -1,4 +1,5 @@
 # PVP MockCET - High-Fidelity Mock Examination Platform
+This is just a live demo of my Mock CET application. 
 
 A premium Flutter application designed to simulate the MHT-CET (Maharashtra Health and Technical Common Entrance Test) experience. This platform features a role-based system for both students and administrators, with a focus on modern UI/UX and seamless performance.
 
