@@ -27,9 +27,6 @@ A premium Flutter application designed to simulate the MHT-CET (Maharashtra Heal
 - **Design System**: Material 3 with custom high-fidelity aesthetics.
 - **Navigation**: Named routes with advanced safety fallbacks.
 
-## 📸 Screenshots
-*(Add your own screenshots here to showcase the premium UI!)*
-
 ## 🏁 Getting Started
 
 ### Prerequisites
