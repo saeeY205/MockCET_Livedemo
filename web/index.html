@@ -19,6 +19,7 @@
   <meta charset="UTF-8">
   <meta content="IE=Edge" http-equiv="X-UA-Compatible">
   <meta name="description" content="PVPIT MockCET Application Live Demo. A premium mock test platform for MHT-CET aspirants.">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <!-- iOS meta tags & icons -->
   <meta name="mobile-web-app-capable" content="yes">
@@ -29,10 +30,603 @@
   <!-- Favicon -->
   <link rel="icon" type="image/png" href="favicon.png"/>
 
-  <title>PVP MockCET | Live Demo</title>
+  <title>PVP MockCET | High-Fidelity Simulator Demo</title>
   <link rel="manifest" href="manifest.json">
+
+  <!-- Premium Typography -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@350;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    /* Scoped Styles for Landing Page */
+    body.landing-page-active {
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+      background: radial-gradient(circle at 10% 20%, #f3f5ff 0%, #f9faff 100%);
+      font-family: 'Outfit', sans-serif;
+      color: #1e293b;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow-x: hidden;
+    }
+
+    body.landing-page-active #landing-root {
+      display: block;
+      width: 100%;
+    }
+
+    /* Container */
+    .landing-container {
+      display: flex;
+      width: 100%;
+      max-width: 1240px;
+      margin: 0 auto;
+      padding: 60px 40px; /* Generous vertical padding to prevent edge touching */
+      align-items: center;
+      justify-content: space-between;
+      gap: 60px;
+      box-sizing: border-box;
+      min-height: 100vh;
+    }
+
+    /* Left Column */
+    .landing-left {
+      flex: 1.15;
+      max-width: 620px;
+      text-align: left;
+      z-index: 2;
+    }
+
+    /* Right Column */
+    .landing-right {
+      flex: 0.85;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      perspective: 1200px;
+      padding: 20px 0;
+      min-height: 660px; /* Ensure space for phone mockup */
+    }
+
+    /* Logo Area */
+    .logo-area {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 32px;
+    }
+
+    .logo-icon-bg {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 44px;
+      height: 44px;
+      background: linear-gradient(135deg, #1a237e 0%, #3f51b5 100%);
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(26, 35, 126, 0.25);
+    }
+
+    .logo-text {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 24px;
+      font-weight: 800;
+      color: #1a237e;
+      letter-spacing: -0.5px;
+    }
+
+    /* Subtitle Badge */
+    .badge-subtitle {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 16px;
+      background: rgba(26, 35, 126, 0.05);
+      border: 1px solid rgba(26, 35, 126, 0.12);
+      border-radius: 100px;
+      font-size: 13px;
+      font-weight: 600;
+      color: #1a237e;
+      margin-bottom: 24px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .badge-dot {
+      width: 8px;
+      height: 8px;
+      background: #3b82f6;
+      border-radius: 50%;
+      display: inline-block;
+      box-shadow: 0 0 8px #3b82f6;
+      animation: pulse-glowing 2s infinite;
+    }
+
+    @keyframes pulse-glowing {
+      0% {
+        transform: scale(0.9);
+        opacity: 0.6;
+        box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.5);
+      }
+      50% {
+        transform: scale(1.15);
+        opacity: 1;
+        box-shadow: 0 0 0 6px rgba(59, 130, 246, 0);
+      }
+      100% {
+        transform: scale(0.9);
+        opacity: 0.6;
+        box-shadow: 0 0 0 0 rgba(59, 130, 246, 0);
+      }
+    }
+
+    /* Headline */
+    .headline {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 52px;
+      font-weight: 800;
+      line-height: 1.15;
+      color: #0f172a;
+      margin: 0 0 24px;
+      letter-spacing: -1.8px;
+    }
+
+    .highlight {
+      background: linear-gradient(135deg, #1a237e 0%, #2563eb 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    /* Description */
+    .description {
+      font-size: 17px;
+      line-height: 1.6;
+      color: #475569;
+      margin: 0 0 32px;
+    }
+
+    /* Quick Demo Credentials Card */
+    .demo-credentials-card {
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 18px;
+      padding: 20px 24px;
+      margin-bottom: 36px;
+      box-shadow: 0 10px 25px -5px rgba(26, 35, 126, 0.04);
+      max-width: 540px;
+    }
+
+    .credentials-header {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 14px;
+      font-weight: 700;
+      color: #1a237e;
+      margin-bottom: 14px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .credentials-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .credentials-box {
+      background: #f8fafc;
+      border: 1px solid #f1f5f9;
+      border-radius: 12px;
+      padding: 12px 14px;
+      transition: all 0.2s ease;
+    }
+
+    .credentials-box:hover {
+      background: #f1f5f9;
+      border-color: #cbd5e1;
+    }
+
+    .role-badge {
+      display: inline-block;
+      font-size: 10px;
+      font-weight: 750;
+      text-transform: uppercase;
+      padding: 3px 8px;
+      border-radius: 6px;
+      margin-bottom: 10px;
+      letter-spacing: 0.25px;
+    }
+
+    .role-badge.admin {
+      background: rgba(220, 38, 38, 0.08);
+      color: #dc2626;
+      border: 1px solid rgba(220, 38, 38, 0.12);
+    }
+
+    .role-badge.student {
+      background: rgba(37, 99, 235, 0.08);
+      color: #2563eb;
+      border: 1px solid rgba(37, 99, 235, 0.12);
+    }
+
+    .credential-line {
+      font-size: 13px;
+      color: #475569;
+      margin: 5px 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 6px;
+    }
+
+    .credential-label {
+      font-weight: 500;
+    }
+
+    .credential-value {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", Courier, monospace;
+      background: #e2e8f0;
+      color: #0f172a;
+      padding: 2.5px 6.5px;
+      border-radius: 5px;
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    /* Badge Grid */
+    .badge-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 48px;
+    }
+
+    .badge-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 18px;
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 100px;
+      font-size: 14px;
+      font-weight: 500;
+      color: #334155;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
+      transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+      cursor: default;
+    }
+
+    .badge-item:hover {
+      transform: translateY(-3px);
+      border-color: rgba(26, 35, 126, 0.25);
+      box-shadow: 0 8px 16px rgba(26, 35, 126, 0.08);
+      color: #1a237e;
+    }
+
+    .badge-icon {
+      font-size: 15px;
+    }
+
+    /* Footer */
+    .landing-footer {
+      font-size: 14px;
+      color: #94a3b8;
+      font-weight: 500;
+      border-top: 1px dashed #e2e8f0;
+      padding-top: 24px;
+    }
+
+    /* iPhone Mockup Chassis - 620px scaled height to perfectly float in the center */
+    .iphone-mockup {
+      position: relative;
+      width: 306px;
+      height: 620px;
+      background: #080808;
+      border-radius: 44px;
+      box-shadow: 
+        0 20px 45px -10px rgba(0, 0, 0, 0.28), 
+        0 0 0 3px #8e9093, /* Metallic outer rim */
+        0 0 0 1px #4e4f51,
+        inset 0 0 10px rgba(255, 255, 255, 0.15);
+      padding: 10px; /* Inner bezel spacing */
+      box-sizing: border-box;
+      transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+      transform-style: preserve-3d;
+    }
+
+    .iphone-screen-container {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      background: #ffffff;
+      border-radius: 34px;
+      overflow: hidden;
+      box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.6);
+      transform: translateZ(0); /* Bugfix for Safari clipping */
+    }
+
+    #app-iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+      background: #ffffff;
+    }
+
+    /* Dynamic Island */
+    .iphone-dynamic-island {
+      position: absolute;
+      top: 18px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80px;
+      height: 22px;
+      background: #000000;
+      border-radius: 100px;
+      z-index: 10;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      padding-right: 14px;
+      box-sizing: border-box;
+      box-shadow: inset 0 0 2px rgba(255, 255, 255, 0.1);
+    }
+
+    .camera-lens {
+      width: 6px;
+      height: 6px;
+      background: #0f1016;
+      border-radius: 50%;
+      box-shadow: inset 0 0 1.5px rgba(255, 255, 255, 0.3);
+    }
+
+    /* Glass Sheen Reflection */
+    .iphone-glare {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(130deg, rgba(255, 255, 255, 0.12) 0%, rgba(255, 255, 255, 0.04) 35%, rgba(255, 255, 255, 0) 36.5%);
+      pointer-events: none;
+      z-index: 8;
+      border-radius: 34px;
+    }
+
+    /* Side Buttons */
+    .iphone-button {
+      position: absolute;
+      width: 4px;
+      background: #8e9093;
+      border-radius: 3px 0 0 3px;
+      z-index: -1;
+    }
+
+    .iphone-button.action {
+      left: -4px;
+      top: 80px;
+      height: 22px;
+    }
+
+    .iphone-button.volume-up {
+      left: -4px;
+      top: 115px;
+      height: 45px;
+    }
+
+    .iphone-button.volume-down {
+      left: -4px;
+      top: 170px;
+      height: 45px;
+    }
+
+    .iphone-button.power {
+      right: -4px;
+      left: auto;
+      top: 135px;
+      height: 65px;
+      border-radius: 0 3px 3px 0;
+    }
+
+    /* Responsive */
+    @media (max-width: 1024px) {
+      .landing-container {
+        flex-direction: column-reverse;
+        padding: 40px 24px;
+        gap: 40px;
+        text-align: center;
+      }
+      .landing-left {
+        text-align: center;
+        max-width: 100%;
+      }
+      .logo-area {
+        justify-content: center;
+        margin-bottom: 24px;
+      }
+      .demo-credentials-card {
+        margin-left: auto;
+        margin-right: auto;
+      }
+      .badge-grid {
+        justify-content: center;
+      }
+      .headline {
+        font-size: 38px;
+        letter-spacing: -1px;
+      }
+    }
+  </style>
 </head>
 <body>
-  <script src="flutter_bootstrap.js" async></script>
+  <div id="landing-root" style="display: none;">
+    <div class="landing-container">
+      <!-- Left Column: Marketing Showcase -->
+      <div class="landing-left">
+        <!-- Logo Header -->
+        <div class="logo-area">
+          <div class="logo-icon-bg">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M12 3L1 9L12 15L21.35 9.9M12 3L23 9L12 15M12 3V15" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M5 12.18V19.4L12 23L19 19.4V12.18" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <span class="logo-text">PVP MockCET</span>
+        </div>
+
+        <!-- Subtitle Badge -->
+        <div class="badge-subtitle">
+          <span class="badge-dot"></span>
+          🚀 High-Fidelity Mock Exam Platform
+        </div>
+
+        <!-- Hero Headline -->
+        <h1 class="headline">
+          Simulate MHT-CET.<br>
+          <span class="highlight">Secure Your Top Rank.</span>
+        </h1>
+
+        <!-- Short Description -->
+        <p class="description">
+          PVP MockCET is a high-fidelity examination simulator modeled precisely after the official MHT-CET interface. Practice subject-wise tests under a strict 3-hour timer, review performance with detailed results, and experience admin broadcast monitoring in real time.
+        </p>
+
+        <!-- Quick Demo Credentials Card -->
+        <div class="demo-credentials-card">
+          <div class="credentials-header">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect x="3" y="11" width="18" height="11" rx="2" ry="2" stroke="#1a237e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M7 11V7a5 5 0 0 1 10 0v4" stroke="#1a237e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            🔑 Live Demo Login Credentials
+          </div>
+          <div class="credentials-grid">
+            <!-- Student role box -->
+            <div class="credentials-box">
+              <div class="role-badge student">Student Role</div>
+              <div class="credential-line">
+                <span class="credential-label">Email:</span>
+                <span class="credential-value">student@gmail.com</span>
+              </div>
+              <div class="credential-line">
+                <span class="credential-label">Pass:</span>
+                <span class="credential-value">any_pass</span>
+              </div>
+            </div>
+
+            <!-- Admin role box -->
+            <div class="credentials-box">
+              <div class="role-badge admin">Admin Role</div>
+              <div class="credential-line">
+                <span class="credential-label">Email:</span>
+                <span class="credential-value">admin@gmail.com</span>
+              </div>
+              <div class="credential-line">
+                <span class="credential-label">Pass:</span>
+                <span class="credential-value">123456</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Product Features Badge Grid -->
+        <div class="badge-grid">
+          <div class="badge-item"><span class="badge-icon">⏱️</span> 3-Hour Exam Timer</div>
+          <div class="badge-item"><span class="badge-icon">📊</span> Instant Score Analytics</div>
+          <div class="badge-item"><span class="badge-icon">🧪</span> MHT-CET Mock Pattern</div>
+          <div class="badge-item"><span class="badge-icon">👨‍🏫</span> Admin Live Dashboard</div>
+          <div class="badge-item"><span class="badge-icon">📢</span> Global Broadcasts</div>
+          <div class="badge-item"><span class="badge-icon">🛡️</span> Role-based Control</div>
+          <div class="badge-item"><span class="badge-icon">📝</span> Interactive Question Palette</div>
+          <div class="badge-item"><span class="badge-icon">👤</span> Student Profiles</div>
+        </div>
+
+        <!-- Clean Footer -->
+        <div class="landing-footer">
+          Built with Flutter · PVP MockCET © 2026
+        </div>
+      </div>
+
+      <!-- Right Column: Interactive Phone Mockup -->
+      <div class="landing-right">
+        <div class="iphone-mockup">
+          <!-- Glass sheen reflection -->
+          <div class="iphone-glare"></div>
+
+          <!-- Screen Frame -->
+          <div class="iphone-screen-container">
+            <iframe id="app-iframe" src="about:blank"></iframe>
+          </div>
+
+          <!-- Dynamic Island -->
+          <div class="iphone-dynamic-island">
+            <div class="camera-lens"></div>
+          </div>
+
+          <!-- Side Buttons (CSS rendered) -->
+          <div class="iphone-button action"></div>
+          <div class="iphone-button volume-up"></div>
+          <div class="iphone-button volume-down"></div>
+          <div class="iphone-button power"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Detection engine
+    const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || window.innerWidth <= 768;
+    const isEmbed = new URLSearchParams(window.location.search).get('embed') === 'true';
+
+    if (isEmbed || isMobile) {
+      // Direct Native App View: Clean full-screen injection
+      if (isMobile && !isEmbed) {
+        // Automatically redirect mobile screens to standard ?embed=true for clean display
+        const searchParams = new URLSearchParams(window.location.search);
+        searchParams.set('embed', 'true');
+        window.location.replace(window.location.pathname + '?' + searchParams.toString() + window.location.hash);
+      } else {
+        // Load the Flutter bootstrap script directly
+        const script = document.createElement('script');
+        script.src = "flutter_bootstrap.js";
+        script.async = true;
+        document.body.appendChild(script);
+      }
+    } else {
+      // Premium Product Landing Showcase View (Desktop)
+      document.body.classList.add('landing-page-active');
+      document.getElementById('landing-root').style.display = 'block';
+
+      // Setup iframe source
+      const searchParams = new URLSearchParams(window.location.search);
+      searchParams.set('embed', 'true');
+      const iframeSrc = window.location.pathname + '?' + searchParams.toString() + window.location.hash;
+      document.getElementById('app-iframe').src = iframeSrc;
+
+      // Premium 3D mouse tracking tilt effect
+      const phone = document.querySelector('.iphone-mockup');
+      const container = document.querySelector('.landing-right');
+
+      if (phone && container) {
+        container.addEventListener('mousemove', (e) => {
+          const rect = container.getBoundingClientRect();
+          const x = e.clientX - rect.left - rect.width / 2;
+          const y = e.clientY - rect.top - rect.height / 2;
+          
+          const tiltX = (y / (rect.height / 2)) * -6; // Max 6 deg
+          const tiltY = (x / (rect.width / 2)) * 6;  // Max 6 deg
+          
+          phone.style.transform = `rotateX(${tiltX}deg) rotateY(${tiltY}deg) scale(1.02)`;
+        });
+        
+        container.addEventListener('mouseleave', () => {
+          phone.style.transform = 'rotateX(0deg) rotateY(0deg) scale(1)';
+        });
+      }
+    }
+  </script>
 </body>
 </html>

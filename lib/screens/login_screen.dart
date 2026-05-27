@@ -61,6 +61,8 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     const primaryColor = Color(0xFF1A237E);
+    final size = MediaQuery.of(context).size;
+    final isCompact = size.width < 360;
 
     return Scaffold(
       resizeToAvoidBottomInset: false,
@@ -72,9 +74,9 @@ class _LoginScreenState extends State<LoginScreen> {
             child: Container(
               color: primaryColor.withValues(alpha: 0.05),
               child: Opacity(
-                opacity: 0.1,
+                opacity: 0.08,
                 child: Center(
-                  child: Icon(Icons.school_outlined, size: 300, color: primaryColor),
+                  child: Icon(Icons.school_outlined, size: isCompact ? 180 : 300, color: primaryColor),
                 ),
               ),
             ),
@@ -87,7 +89,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   begin: Alignment.topCenter,
                   end: Alignment.bottomCenter,
                   colors: [
-                    primaryColor.withValues(alpha: 0.1),
+                    primaryColor.withValues(alpha: 0.08),
                     Colors.white.withValues(alpha: 0.8),
                     Colors.white,
                   ],
@@ -100,53 +102,55 @@ class _LoginScreenState extends State<LoginScreen> {
             child: Center(
               child: SingleChildScrollView(
                 physics: const AlwaysScrollableScrollPhysics(),
-                padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 20),
+                padding: EdgeInsets.symmetric(horizontal: isCompact ? 16 : 32, vertical: 20),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
                     // Branded header
                     Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+                      padding: isCompact
+                          ? const EdgeInsets.symmetric(horizontal: 16, vertical: 8)
+                          : const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
                       decoration: BoxDecoration(
                         color: Colors.white.withValues(alpha: 0.9),
-                        borderRadius: BorderRadius.circular(20),
+                        borderRadius: BorderRadius.circular(isCompact ? 14 : 20),
                         border: Border.all(color: primaryColor.withValues(alpha: 0.1), width: 1),
                         boxShadow: [
                           BoxShadow(
-                            color: primaryColor.withValues(alpha: 0.1),
-                            blurRadius: 20,
-                            offset: const Offset(0, 10),
+                            color: primaryColor.withValues(alpha: 0.06),
+                            blurRadius: 15,
+                            offset: const Offset(0, 8),
                           ),
                         ],
                       ),
-                      child: const Text(
+                      child: Text(
                         'PVP MockCET',
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           color: primaryColor,
                           fontWeight: FontWeight.w900,
-                          letterSpacing: 4,
-                          fontSize: 34,
+                          letterSpacing: isCompact ? 2 : 4,
+                          fontSize: isCompact ? 22 : 34,
                         ),
                       ),
                     ),
-                    const SizedBox(height: 24),
+                    SizedBox(height: isCompact ? 12 : 24),
                     // College Name
-                    const Text(
+                    Text(
                       'Padmabhooshan Vasantraodada Patil Institute of Technology, Budhgaon',
                       textAlign: TextAlign.center,
                       style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.w900,
-                        color: primaryColor,
-                        height: 1.2,
+                        fontSize: isCompact ? 12 : 20,
+                        fontWeight: FontWeight.w800,
+                        color: primaryColor.withValues(alpha: 0.8),
+                        height: 1.3,
                       ),
                     ),
-                    const SizedBox(height: 32),
-                    _buildLoginForm(primaryColor),
-                    const SizedBox(height: 16),
-                    _buildLinks(primaryColor),
+                    SizedBox(height: isCompact ? 20 : 32),
+                    _buildLoginForm(primaryColor, isCompact),
+                    SizedBox(height: isCompact ? 12 : 16),
+                    _buildLinks(primaryColor, isCompact),
                   ],
                 ),
               ),
@@ -157,17 +161,17 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
-  Widget _buildLoginForm(Color primaryColor) {
+  Widget _buildLoginForm(Color primaryColor, bool isCompact) {
     return Container(
-      padding: const EdgeInsets.all(24),
+      padding: EdgeInsets.all(isCompact ? 16 : 24),
       decoration: BoxDecoration(
         color: Colors.white,
-        borderRadius: BorderRadius.circular(24),
+        borderRadius: BorderRadius.circular(isCompact ? 16 : 24),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withValues(alpha: 0.04),
-            blurRadius: 20,
-            offset: const Offset(0, 10),
+            color: Colors.black.withValues(alpha: 0.03),
+            blurRadius: 15,
+            offset: const Offset(0, 8),
           ),
         ],
       ),
@@ -177,36 +181,38 @@ class _LoginScreenState extends State<LoginScreen> {
           children: [
             TextFormField(
               controller: _emailController,
-              decoration: _inputDecoration('Email Address', Icons.email_outlined, primaryColor),
+              style: isCompact ? const TextStyle(fontSize: 14) : null,
+              decoration: _inputDecoration('Email Address', Icons.email_outlined, primaryColor, isCompact),
               validator: (v) => (v == null || v.isEmpty) ? 'Email is required' : null,
             ),
-            const SizedBox(height: 16),
+            SizedBox(height: isCompact ? 12 : 16),
             TextFormField(
               controller: _passwordController,
               obscureText: !_isPasswordVisible,
-              decoration: _inputDecoration('Password', Icons.lock_outline, primaryColor).copyWith(
+              style: isCompact ? const TextStyle(fontSize: 14) : null,
+              decoration: _inputDecoration('Password', Icons.lock_outline, primaryColor, isCompact).copyWith(
                 suffixIcon: IconButton(
-                  icon: Icon(_isPasswordVisible ? Icons.visibility : Icons.visibility_off),
+                  icon: Icon(_isPasswordVisible ? Icons.visibility : Icons.visibility_off, size: isCompact ? 20 : 24),
                   onPressed: () => setState(() => _isPasswordVisible = !_isPasswordVisible),
                 ),
               ),
               validator: (v) => (v == null || v.isEmpty) ? 'Password is required' : null,
             ),
-            const SizedBox(height: 24),
+            SizedBox(height: isCompact ? 16 : 24),
             SizedBox(
               width: double.infinity,
-              height: 50,
+              height: isCompact ? 44 : 50,
               child: ElevatedButton(
                 onPressed: _isLoading ? null : _login,
                 style: ElevatedButton.styleFrom(
                   backgroundColor: primaryColor,
                   foregroundColor: Colors.white,
-                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(isCompact ? 12 : 16)),
                   elevation: 0,
                 ),
                 child: _isLoading
                     ? const SizedBox(height: 20, width: 20, child: CircularProgressIndicator(color: Colors.white, strokeWidth: 2))
-                    : const Text('Login to Portal', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+                    : Text('Login to Portal', style: TextStyle(fontSize: isCompact ? 14 : 16, fontWeight: FontWeight.bold)),
               ),
             ),
           ],
@@ -215,36 +221,63 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
-  Widget _buildLinks(Color primaryColor) {
+  Widget _buildLinks(Color primaryColor, bool isCompact) {
     return Column(
       children: [
         Wrap(
           alignment: WrapAlignment.center,
           crossAxisAlignment: WrapCrossAlignment.center,
           children: [
-            const Text("Don't have an account? "),
+            Text("Don't have an account? ", style: TextStyle(fontSize: isCompact ? 12 : 14)),
             TextButton(
               onPressed: () {},
-              child: const Text('Register Now', style: TextStyle(fontWeight: FontWeight.bold, decoration: TextDecoration.underline)),
+              style: isCompact
+                  ? TextButton.styleFrom(
+                      padding: EdgeInsets.zero,
+                      minimumSize: const Size(0, 0),
+                      tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                    )
+                  : null,
+              child: Text(
+                'Register Now',
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  decoration: TextDecoration.underline,
+                  fontSize: isCompact ? 12 : 14,
+                ),
+              ),
             ),
           ],
         ),
+        SizedBox(height: isCompact ? 4 : 8),
         TextButton.icon(
           onPressed: () {},
-          icon: const Icon(Icons.help_outline, size: 18),
-          label: const Text('Need Help? View User Guide'),
+          style: isCompact
+              ? TextButton.styleFrom(
+                  padding: EdgeInsets.zero,
+                  minimumSize: const Size(0, 0),
+                  tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                )
+              : null,
+          icon: Icon(Icons.help_outline, size: isCompact ? 14 : 18),
+          label: Text(
+            'Need Help? View User Guide',
+            style: TextStyle(fontSize: isCompact ? 11 : 14),
+          ),
         ),
       ],
     );
   }
 
-  InputDecoration _inputDecoration(String label, IconData icon, Color primaryColor) {
+  InputDecoration _inputDecoration(String label, IconData icon, Color primaryColor, bool isCompact) {
     return InputDecoration(
       labelText: label,
-      prefixIcon: Icon(icon, color: primaryColor.withValues(alpha: 0.7)),
+      labelStyle: isCompact ? const TextStyle(fontSize: 13) : null,
+      contentPadding: isCompact ? const EdgeInsets.symmetric(horizontal: 12, vertical: 10) : null,
+      prefixIcon: Icon(icon, color: primaryColor.withValues(alpha: 0.7), size: isCompact ? 18 : 24),
       filled: true,
       fillColor: const Color(0xFFF3F5F9),
-      border: OutlineInputBorder(borderRadius: BorderRadius.circular(16), borderSide: BorderSide.none),
+      border: OutlineInputBorder(borderRadius: BorderRadius.circular(isCompact ? 12 : 16), borderSide: BorderSide.none),
     );
   }
 }
